@@ -36,10 +36,10 @@
 - **API:** API-Football via RapidAPI
 
 ### Frontend (Not Started Yet)
-- **Framework:** Angular 17+
-- **UI:** Angular Material + TailwindCSS
-- **Charts:** Chart.js with ng2-charts
-- **State:** RxJS + Services
+- **Framework:** React 18+ (Vite)
+- **UI:** shadcn/ui + TailwindCSS
+- **Charts:** Chart.js with react-chartjs-2
+- **State:** React Query + Context API
 
 ### Deployment (Planned)
 - **Frontend:** Vercel
@@ -536,19 +536,11 @@ See: `football-stat-tracker-project-plan.md`
 - Deployment strategy
 - Testing approach
 
-### Angular Setup Guide
-See: `angular-setup-guide.md` (for frontend later)
-- Angular installation
-- VS Code configuration
-- Essential extensions
-- Project structure
-
-### Angular Todo List Explanation
-See: `angular-todo-explanation.md`
-- Component architecture
-- Data binding examples
-- Template syntax
-- Helpful for understanding Angular concepts
+### React Setup Guide
+- Vite + React + TypeScript
+- TailwindCSS configuration
+- shadcn/ui component library
+- React Query for data fetching
 
 ---
 
@@ -609,8 +601,8 @@ Start with creating the Football API service."
 
 ### Community
 - Stack Overflow: For debugging
-- Discord: Angular, Node.js communities
-- Reddit: r/node, r/angular, r/typescript
+- Discord: React, Node.js communities
+- Reddit: r/node, r/reactjs, r/typescript
 
 ---
 
