@@ -1,4 +1,5 @@
 # Football Stat Tracker - Project Context for Claude Code
+# This is the document for the scratch branch
 
 **Date:** February 26, 2026  
 **Project Status:** Backend foundation complete, ready for API endpoints  
