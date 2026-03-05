@@ -13,7 +13,7 @@ function App(){
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <Routes>
-          {/* Define routes for the home page and player page */}
+        {/* Define routes for the home page and player page */}
           <Route path="/" element={<HomePage />} />
           <Route path="/player/:id" element={<PlayerPage />} />
         </Routes>
