@@ -1,7 +1,5 @@
 import { cache } from './cache.service';
 
-const RAPIDAPI_HOST = 'v3.football.api-sports.io';
-
 const BASE_URL = 'https://v3.football.api-sports.io';
 
 const TTL = {
@@ -52,8 +50,7 @@ async function apiRequest<T>(endpoint: string, params: Record<string, string | n
 
   const response = await fetch(url.toString(), {
     headers: {
-      'x-rapidapi-key': process.env.FOOTBALL_API_KEY!,
-      'x-rapidapi-host': RAPIDAPI_HOST,
+      'x-apisports-key': process.env.FOOTBALL_API_KEY!,
     },
   });
 
@@ -62,7 +59,7 @@ async function apiRequest<T>(endpoint: string, params: Record<string, string | n
   }
 
   const data = await response.json() as T;
-  await cache.set(cacheKey, data, ttl);
+  cache.set(cacheKey, data, ttl);
   return data;
 }
 
@@ -70,8 +67,8 @@ export async function getTeamById(teamId: number) {
   return apiRequest('/teams', { id: teamId }, TTL.TEAM);
 }
 
-export async function searchPlayers(name: string) {
-  return apiRequest('/players', { search: name }, TTL.PLAYER_SEARCH);
+export async function searchPlayers(name: string, league: number, season: number) {
+  return apiRequest('/players', { search: name, league, season }, TTL.PLAYER_SEARCH);
 }
 
 export async function getPlayerById(playerId: number, season: number) {

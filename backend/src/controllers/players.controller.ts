@@ -19,13 +19,15 @@ export async function getRateLimitHandler(req: Request, res: Response, next: Nex
 
 export async function searchPlayersHandler(req: Request, res: Response, next: NextFunction) {
   try {
-    const { q } = req.query;
+    const { q, league, season } = req.query;
     if (!q || typeof q !== 'string') {
       res.status(400).json({ success: false, error: { code: 'MISSING_QUERY', message: 'Search query q is required' } });
       return;
     }
-    const data = await searchPlayers(q);
-    res.json({ success: true, data });
+    const leagueId = Number(league) || 39; // default: Premier League
+    const seasonYear = Number(season) || 2024;
+    const result = await searchPlayers(q, leagueId, seasonYear) as any;
+    res.json({ success: true, data: result.response });
   } catch (error) {
     next(error);
   }
@@ -35,8 +37,8 @@ export async function getPlayerByIdHandler(req: Request, res: Response, next: Ne
   try {
     const { id } = req.params;
     const season = Number(req.query.season) || new Date().getFullYear();
-    const data = await getPlayerById(Number(id), season);
-    res.json({ success: true, data });
+    const result = await getPlayerById(Number(id), season) as any;
+    res.json({ success: true, data: result.response?.[0] });
   } catch (error) {
     next(error);
   }
@@ -46,8 +48,8 @@ export async function getPlayerStatsHandler(req: Request, res: Response, next: N
   try {
     const { id } = req.params;
     const season = Number(req.query.season) || new Date().getFullYear();
-    const data = await getPlayerStats(Number(id), season);
-    res.json({ success: true, data });
+    const result = await getPlayerStats(Number(id), season) as any;
+    res.json({ success: true, data: result.response?.[0] });
   } catch (error) {
     next(error);
   }

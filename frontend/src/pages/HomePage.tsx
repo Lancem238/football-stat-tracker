@@ -1,22 +1,44 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { usePlayerSearch } from "../hooks/usePlayers";
 
+const LEAGUES = [
+    { id: 39,  name: "Premier League" },
+    { id: 140, name: "La Liga" },
+    { id: 78,  name: "Bundesliga" },
+    { id: 135, name: "Serie A" },
+    { id: 61,  name: "Ligue 1" },
+];
+
 export default function HomePage() {
-    // State to hold the search query entered by the user
+    const [ input, setInput ] = useState("");
     const [ query, setQuery ] = useState("");
-    // Hook to navigate programmatically to different routes
+    const [ league, setLeague ] = useState(39);
     const navigate = useNavigate();
-    // Custom hook to fetch player search results based on the query
-    const { data: players, isLoading, isError } = usePlayerSearch(query);
+
+    useEffect(() => {
+        const timer = setTimeout(() => setQuery(input), 500);
+        return () => clearTimeout(timer);
+    }, [input]);
+
+    const { data: players, isLoading, isError } = usePlayerSearch(query, league);
     return (
         <div className="min-h-screen flex flex-col items-center justify-center p-4">
             <h1 className="text-4xl font-bold mb-2">StatTrack</h1>
             <p className="text-lg mb-4">Search for any player</p>
+            <select
+                value={league}
+                onChange={(e) => setLeague(Number(e.target.value))}
+                className="border border-gray-300 rounded px-4 py-2 w-full max-w-md mb-2"
+            >
+                {LEAGUES.map(l => (
+                    <option key={l.id} value={l.id}>{l.name}</option>
+                ))}
+            </select>
             <input
                 type="text"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
                 placeholder="Search players..."
                 className="border border-gray-300 rounded px-4 py-2 w-full max-w-md mb-4"
             />
