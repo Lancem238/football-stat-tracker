@@ -35,10 +35,10 @@ export async function getPlayerStats(id: number): Promise<PlayerSearchResult> {
 // Fetches player search results from API endpoint and returns an array of PlayerSearchResult objects
 // Async function that makes a GET request to the API endpoint /players/search?q={query}
 // and returns an array of player search results matching the query
-export async function searchPlayers(query: string): Promise<PlayerSearchResult[]> {
+export async function searchPlayers(query: string, league: number): Promise<PlayerSearchResult[]> {
   try {
     const { data } = await api.get<ApiResponse<PlayerSearchResult[]>>('/players/search', {
-      params: { q: query },
+      params: { q: query, league },
     });
     return data.data;
   } catch (error) {

@@ -2,11 +2,11 @@ import { useQuery } from "@tanstack/react-query";
 import { getPlayerById, getPlayerStats, searchPlayers } from "../services/api";
 
 // Custom hook to search for players based on a query string
-export function usePlayerSearch(query: string) {
+export function usePlayerSearch(query: string, league: number) {
     return useQuery({
-        queryKey: ['players', query],
-        queryFn: () => searchPlayers(query),
-        enabled: !!query,
+        queryKey: ['players', query, league],
+        queryFn: () => searchPlayers(query, league),
+        enabled: !!query && !!league,
     });
 }
 
